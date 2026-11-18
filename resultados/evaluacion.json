@@ -1,15 +1,15 @@
 {
-  "distance": 2.539430459340413,
-  "length": 60.0,
-  "steps": 88,
-  "simulated_seconds": 1.76,
-  "effort": 118.5630407333374,
-  "success": false,
-  "reason": "fall",
+  "distance": 240.0,
+  "length": 240.0,
+  "steps": 2452,
+  "simulated_seconds": 49.04,
+  "effort": 4943.793250948191,
+  "success": true,
+  "reason": "success",
   "device": "cpu",
-  "scenario": "plano.json",
-  "scenario_sha256": "d470f44088602d21753174602d9ec175c6e12cb3cb9ff5bc224af847b7a4d0d5",
-  "simulation_seed": 100,
-  "max_steps": 2400,
-  "training_return": -98.80113438698339
+  "scenario": "maraton_01.json",
+  "scenario_sha256": "0d7ae5e415f80ccfd86b25a5046f2c8865ee6864d8701e87380f3743ec2ebb2f",
+  "simulation_seed": 1201,
+  "max_steps": 6000,
+  "training_return": 901.6394084741157
 }
