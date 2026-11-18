@@ -1,0 +1,3 @@
+# Dependencias adicionales de esta entrega, con sus versiones.
+# No duplique ni cambie las versiones del simulador del laboratorio.
+torch==2.15.0

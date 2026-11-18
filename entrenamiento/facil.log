@@ -1,0 +1,29 @@
+﻿Etapa facil: 8 entornos; 700000 pasos.
+[   0.8 min] pasos=   25000 dist_train=   1.3 eval=0.002 (0.01, 0.00, 0.00, 0.00)  <-- mejor, guardado en agente/policy.pt
+[   5.1 min] pasos=   50000 dist_train=   1.6 eval=0.010 (0.02, 0.01, 0.01, 0.01)  <-- mejor, guardado en agente/policy.pt
+[  12.1 min] pasos=   75000 dist_train=   1.9 eval=0.016 (0.00, 0.02, 0.02, 0.02)  <-- mejor, guardado en agente/policy.pt
+[  15.9 min] pasos=  100000 dist_train=   2.9 eval=0.112 (0.41, 0.01, 0.02, 0.01)  <-- mejor, guardado en agente/policy.pt
+[  21.8 min] pasos=  125000 dist_train=   8.2 eval=0.126 (0.48, 0.01, 0.01, 0.01)  <-- mejor, guardado en agente/policy.pt
+[  26.1 min] pasos=  150000 dist_train=  18.8 eval=0.679 (1.00, 0.65, 0.60, 0.47)  <-- mejor, guardado en agente/policy.pt
+[  31.9 min] pasos=  175000 dist_train=  30.8 eval=0.626 (1.00, 0.61, 0.43, 0.46)
+[  37.2 min] pasos=  200000 dist_train=  40.0 eval=0.607 (0.66, 0.65, 0.66, 0.46)
+[  42.8 min] pasos=  225000 dist_train=  34.9 eval=0.706 (1.00, 0.64, 0.66, 0.52)  <-- mejor, guardado en agente/policy.pt
+[  48.2 min] pasos=  250000 dist_train=  38.4 eval=0.001 (0.00, 0.00, 0.00, 0.00)
+[  53.6 min] pasos=  275000 dist_train=  37.8 eval=0.583 (1.00, 0.68, 0.00, 0.65)
+[  59.3 min] pasos=  300000 dist_train=  46.4 eval=0.761 (1.00, 0.65, 0.64, 0.75)  <-- mejor, guardado en agente/policy.pt
+[  64.8 min] pasos=  325000 dist_train=  47.6 eval=0.798 (1.00, 0.68, 1.00, 0.52)  <-- mejor, guardado en agente/policy.pt
+[  71.0 min] pasos=  350000 dist_train=  50.7 eval=0.788 (1.00, 0.65, 0.82, 0.69)
+[  77.0 min] pasos=  375000 dist_train=  53.3 eval=0.788 (1.00, 0.93, 0.70, 0.52)
+[  84.1 min] pasos=  400000 dist_train=  53.1 eval=0.695 (1.00, 0.65, 0.38, 0.75)
+[  90.3 min] pasos=  425000 dist_train=  55.8 eval=0.812 (0.95, 1.00, 0.55, 0.75)  <-- mejor, guardado en agente/policy.pt
+[  96.3 min] pasos=  450000 dist_train=  56.1 eval=0.790 (1.00, 0.64, 1.00, 0.52)
+[ 101.2 min] pasos=  475000 dist_train=  56.1 eval=0.701 (1.00, 0.55, 0.66, 0.59)
+[ 103.8 min] pasos=  500000 dist_train=  55.6 eval=0.650 (1.00, 0.46, 0.80, 0.34)
+[ 107.1 min] pasos=  525000 dist_train=  54.4 eval=0.687 (1.00, 0.64, 0.65, 0.46)
+[ 323.5 min] pasos=  550000 dist_train=  53.7 eval=0.008 (0.02, 0.00, 0.00, 0.00)
+[ 330.2 min] pasos=  575000 dist_train=  52.1 eval=0.730 (1.00, 0.64, 0.73, 0.55)
+[ 336.6 min] pasos=  600000 dist_train=  53.5 eval=0.874 (1.00, 0.63, 1.00, 0.86)  <-- mejor, guardado en agente/policy.pt
+[ 342.6 min] pasos=  625000 dist_train=  53.4 eval=0.739 (1.00, 0.67, 0.72, 0.56)
+[ 348.7 min] pasos=  650000 dist_train=  55.8 eval=0.721 (1.00, 0.78, 0.42, 0.69)
+[ 359.1 min] pasos=  675000 dist_train=  56.3 eval=0.764 (0.84, 0.97, 0.73, 0.52)
+[ 371.1 min] pasos=  700000 dist_train=  56.4 eval=0.749 (0.42, 1.00, 0.81, 0.76)

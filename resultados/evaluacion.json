@@ -1,0 +1,15 @@
+{
+  "distance": 2.539430459340413,
+  "length": 60.0,
+  "steps": 88,
+  "simulated_seconds": 1.76,
+  "effort": 118.5630407333374,
+  "success": false,
+  "reason": "fall",
+  "device": "cpu",
+  "scenario": "plano.json",
+  "scenario_sha256": "d470f44088602d21753174602d9ec175c6e12cb3cb9ff5bc224af847b7a4d0d5",
+  "simulation_seed": 100,
+  "max_steps": 2400,
+  "training_return": -98.80113438698339
+}
