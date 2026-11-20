@@ -1,0 +1,46 @@
+﻿Política actual en las pistas de la etapa: 0.731 (0.69, 0.69, 0.67, 0.75, 0.84, 0.75)
+Etapa hardcore: 8 entornos; 800000 pasos.
+python.exe : C:\Users\piero\.conda\envs\lab4\Lib\site-packages\stable_baselines3\common\utils.py:166: UserWarning: 
+get_schedule_fn() is deprecated, please use FloatSchedule() instead
+En línea: 1 Carácter: 418
++ ... ython.exe"; & $py -u entrenar.py --etapa hardcore --pasos 800000 --lr ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (C:\Users\piero\...edule() instead:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+  warnings.warn("get_schedule_fn() is deprecated, please use FloatSchedule() instead")
+C:\Users\piero\.conda\envs\lab4\Lib\site-packages\stable_baselines3\common\utils.py:212: UserWarning: constant_fn() is 
+deprecated, please use ConstantSchedule() instead
+  warnings.warn("constant_fn() is deprecated, please use ConstantSchedule() instead")
+[   6.8 min] pasos= 1800000 dist_train=  81.3 eval=0.238 (0.57, 0.17, 0.13, 0.00, 0.49, 0.06)
+[  12.8 min] pasos= 1825000 dist_train=  79.9 eval=0.464 (0.52, 0.45, 0.55, 0.46, 0.29, 0.52)
+[  18.0 min] pasos= 1850000 dist_train=  75.7 eval=0.553 (0.68, 0.44, 0.37, 0.70, 0.62, 0.51)
+[  24.2 min] pasos= 1875000 dist_train=  71.9 eval=0.630 (0.57, 0.46, 0.48, 0.65, 0.84, 0.78)
+[ 107.9 min] pasos= 1900000 dist_train=  73.9 eval=0.528 (0.43, 0.45, 0.58, 0.53, 0.49, 0.68)
+[ 116.3 min] pasos= 1925000 dist_train=  78.9 eval=0.409 (0.16, 0.10, 0.55, 0.69, 0.30, 0.65)
+[ 124.1 min] pasos= 1950000 dist_train=  80.7 eval=0.596 (0.69, 0.46, 0.55, 0.72, 0.50, 0.65)
+[ 131.2 min] pasos= 1975000 dist_train=  81.2 eval=0.612 (0.58, 0.45, 0.55, 0.71, 0.61, 0.77)
+[ 150.9 min] pasos= 2000000 dist_train=  81.9 eval=0.592 (0.68, 0.55, 0.64, 0.53, 0.50, 0.65)
+[ 158.6 min] pasos= 2025000 dist_train=  81.8 eval=0.619 (0.70, 0.46, 0.58, 0.70, 0.50, 0.77)
+[ 164.9 min] pasos= 2050000 dist_train=  85.4 eval=0.599 (0.44, 0.65, 0.59, 0.46, 0.64, 0.81)
+[ 171.2 min] pasos= 2075000 dist_train=  84.1 eval=0.167 (0.00, 0.46, 0.01, 0.01, 0.02, 0.49)
+[ 178.6 min] pasos= 2100000 dist_train=  83.2 eval=0.670 (0.70, 0.56, 0.65, 0.70, 0.64, 0.77)
+[ 185.0 min] pasos= 2125000 dist_train=  81.4 eval=0.682 (0.71, 0.78, 0.61, 0.70, 0.50, 0.80)
+[ 191.8 min] pasos= 2150000 dist_train=  83.3 eval=0.506 (0.70, 0.33, 0.54, 0.29, 0.51, 0.65)
+[ 198.2 min] pasos= 2175000 dist_train=  83.7 eval=0.596 (0.56, 0.47, 0.55, 0.69, 0.50, 0.81)
+[ 205.4 min] pasos= 2200000 dist_train=  82.8 eval=0.615 (0.56, 0.46, 0.66, 0.72, 0.49, 0.80)
+[ 212.1 min] pasos= 2225000 dist_train=  82.2 eval=0.712 (0.70, 0.78, 0.66, 0.72, 0.65, 0.75)
+[ 218.3 min] pasos= 2250000 dist_train=  83.3 eval=0.636 (0.75, 0.45, 0.54, 0.72, 0.49, 0.86)
+[ 224.7 min] pasos= 2275000 dist_train=  83.6 eval=0.630 (0.58, 0.69, 0.56, 0.70, 0.49, 0.77)
+[ 231.2 min] pasos= 2300000 dist_train=  86.4 eval=0.684 (0.69, 0.69, 0.54, 0.71, 0.67, 0.80)
+[ 237.8 min] pasos= 2325000 dist_train=  82.8 eval=0.609 (0.57, 0.68, 0.65, 0.70, 0.42, 0.65)
+[ 244.1 min] pasos= 2350000 dist_train=  82.2 eval=0.665 (0.57, 0.66, 0.66, 0.74, 0.65, 0.71)
+[ 250.6 min] pasos= 2375000 dist_train=  83.2 eval=0.634 (0.44, 0.67, 0.67, 0.76, 0.49, 0.77)
+[ 257.0 min] pasos= 2400000 dist_train=  83.9 eval=0.629 (0.57, 0.66, 0.55, 0.70, 0.66, 0.63)
+[ 263.5 min] pasos= 2425000 dist_train=  82.5 eval=0.633 (0.70, 0.69, 0.50, 0.70, 0.49, 0.71)
+[ 269.7 min] pasos= 2450000 dist_train=  80.3 eval=0.638 (0.49, 0.67, 0.66, 0.69, 0.67, 0.65)
+[ 275.4 min] pasos= 2475000 dist_train=  79.6 eval=0.684 (0.70, 0.65, 0.56, 0.73, 0.68, 0.77)
+[ 281.6 min] pasos= 2500000 dist_train=  76.3 eval=0.604 (0.49, 0.67, 0.56, 0.70, 0.49, 0.72)
+[ 287.8 min] pasos= 2525000 dist_train=  79.3 eval=0.665 (0.71, 0.44, 0.77, 0.72, 0.67, 0.68)
+[ 294.0 min] pasos= 2550000 dist_train=  78.5 eval=0.677 (0.56, 0.67, 0.67, 0.71, 0.65, 0.80)
+[ 300.1 min] pasos= 2575000 dist_train=  80.5 eval=0.610 (0.33, 0.45, 0.66, 0.81, 0.65, 0.76)

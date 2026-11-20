@@ -1,15 +1,15 @@
 {
   "distance": 240.0,
   "length": 240.0,
-  "steps": 2452,
-  "simulated_seconds": 49.04,
-  "effort": 4943.793250948191,
+  "steps": 2439,
+  "simulated_seconds": 48.78,
+  "effort": 5392.516294926405,
   "success": true,
   "reason": "success",
   "device": "cpu",
-  "scenario": "maraton_01.json",
-  "scenario_sha256": "0d7ae5e415f80ccfd86b25a5046f2c8865ee6864d8701e87380f3743ec2ebb2f",
-  "simulation_seed": 1201,
+  "scenario": "maraton_04.json",
+  "scenario_sha256": "c8b7daf45d39881d7c6be2bf7d9fabf96d79524126a24fb1e56791a3deafdeed",
+  "simulation_seed": 971117,
   "max_steps": 6000,
-  "training_return": 901.6394084741157
+  "training_return": 889.1427356053683
 }

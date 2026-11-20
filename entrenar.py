@@ -16,12 +16,21 @@ from stable_baselines3.common.callbacks import BaseCallback
 from stable_baselines3.common.monitor import Monitor
 from stable_baselines3.common.vec_env import SubprocVecEnv
 
-from agente.architecture import PolicyMLP
 from walker_lab.environment import WalkerEnv
+from walker_lab.scenarios import generate_scenario
 
 ROOT = Path(__file__).resolve().parent
 OUT_DIR = ROOT / "entrenamiento"
-POLICY_PATH = ROOT / "agente" / "policy.pt"
+# Carpeta de la entrega: "agente", o "agente_past" si fue renombrada.
+AGENT_DIR = next(d for d in (ROOT / "agente", ROOT / "agente_past") if (d / "architecture.py").is_file())
+POLICY_PATH = AGENT_DIR / "policy.pt"
+
+import importlib.util  # noqa: E402
+
+_spec = importlib.util.spec_from_file_location("architecture", AGENT_DIR / "architecture.py")
+_arch = importlib.util.module_from_spec(_spec)
+_spec.loader.exec_module(_arch)
+PolicyMLP = _arch.PolicyMLP
 
 # (perfil, longitud, dificultad): un entorno paralelo por entrada.
 ETAPAS = {
@@ -35,15 +44,31 @@ ETAPAS = {
         ("bloques", 60, "hardcore"), ("huecos", 60, "hardcore"), ("mixto", 60, "hardcore"),
         ("maraton", 120, "normal"), ("maraton", 120, "hardcore-plus"),
     ],
+    # El profesor evaluará con pistas nuevas (semillas distintas), probablemente hardcore.
+    "hardcore": [
+        ("maraton", 120, "hardcore-plus"), ("maraton", 120, "hardcore-plus"),
+        ("maraton", 120, "hardcore-plus"), ("maraton", 160, "hardcore-plus"),
+        ("maraton", 120, "hardcore"), ("maraton", 160, "hardcore"),
+        ("maraton", 200, "hardcore-plus"), ("mixto", 60, "hardcore-plus"),
+    ],
 }
 
-# Pistas reales sobre las que se elige el mejor modelo.
+# Pistas sobre las que se elige el mejor modelo, según la etapa.
 EVAL_SCENARIOS = [
     ROOT / "escenarios" / "practica" / "mixto.json",
     ROOT / "escenarios" / "validacion" / "maraton_01.json",
     ROOT / "escenarios" / "validacion" / "maraton_02.json",
     ROOT / "escenarios" / "hardcore" / "maraton_01.json",
 ]
+
+
+def eval_scenes(etapa):
+    if etapa != "hardcore":
+        return EVAL_SCENARIOS
+    # Semillas 9001-9006: nunca vistas en entrenamiento (que usa semillas aleatorias de reset).
+    plus = [generate_scenario("maraton", 9000 + i, 240, 6000, "hardcore-plus") for i in range(1, 5)]
+    base = [generate_scenario("maraton", 9000 + i, 240, 6000, "hardcore") for i in range(5, 7)]
+    return plus + base
 
 
 def make_env(spec, seed):
@@ -75,7 +100,7 @@ def evaluate(policy, scenarios):
     """Distancia normalizada (0..1) media sobre pistas fijas, con el MLP exportado."""
     scores = []
     for path in scenarios:
-        env = WalkerEnv(scenario=str(path))
+        env = WalkerEnv(scenario=path)
         obs, info = env.reset(seed=env.fixed_scenario["simulation_seed"])
         done = False
         while not done:
@@ -88,12 +113,17 @@ def evaluate(policy, scenarios):
 
 
 class ExportCallback(BaseCallback):
-    def __init__(self, eval_freq, best=-1.0):
+    def __init__(self, eval_freq, best=-1.0, scenes=None):
         super().__init__()
+        self.scenes = scenes if scenes is not None else EVAL_SCENARIOS
         self.eval_freq = eval_freq
         self.next_eval = eval_freq
         self.best = best
         self.t0 = time.time()
+
+    def _on_training_start(self):
+        # Al reanudar, num_timesteps ya es grande: el primer chequeo es eval_freq pasos después.
+        self.next_eval = self.num_timesteps + self.eval_freq
 
     def _on_step(self):
         if self.num_timesteps >= self.next_eval:
@@ -106,7 +136,7 @@ class ExportCallback(BaseCallback):
         self.model.save(OUT_DIR / "ultimo.zip")
         tmp = OUT_DIR / "candidato.pt"
         policy = export_actor(self.model, tmp)
-        score, scores = evaluate(policy, EVAL_SCENARIOS)
+        score, scores = evaluate(policy, self.scenes)
         buf = [e for e in self.model.ep_info_buffer if "distance" in e]
         train_dist = np.mean([e["distance"] for e in buf]) if buf else float("nan")
         mark = ""
@@ -129,17 +159,34 @@ def main():
     parser.add_argument("--eval-freq", type=int, default=25_000)
     parser.add_argument("--device", default="cpu", help="Dispositivo de entrenamiento (cpu o cuda).")
     parser.add_argument("--seed", type=int, default=0)
-    parser.add_argument("--best-init", type=float, default=-1.0, help="Puntaje a superar para reemplazar agente/policy.pt.")
+    parser.add_argument("--best-init", type=float, default=None,
+                        help="Puntaje a superar para reemplazar agente/policy.pt; por defecto, el de la política actual en las pistas de la etapa.")
+    parser.add_argument("--lr", type=float, help="Tasa de aprendizaje al reanudar (por defecto, la del modelo guardado).")
     parser.add_argument("--learning-starts", type=int, default=20_000, help="Pasos aleatorios iniciales (usar poco solo para pruebas).")
     args = parser.parse_args()
 
     torch.set_num_threads(4)
     specs = ETAPAS[args.etapa]
+    scenes = eval_scenes(args.etapa)
+    best_init = args.best_init
+    if best_init is None:
+        if POLICY_PATH.exists():
+            ckpt = torch.load(POLICY_PATH, weights_only=True)
+            current = PolicyMLP(hidden=tuple(ckpt["hidden"]))
+            current.load_state_dict(ckpt["state_dict"])
+            best_init, per_scene = evaluate(current, scenes)
+            print(f"Política actual en las pistas de la etapa: {best_init:.3f} "
+                  f"({', '.join(f'{s:.2f}' for s in per_scene)})", flush=True)
+        else:
+            best_init = -1.0
     env = SubprocVecEnv([make_env(spec, args.seed * 100 + i) for i, spec in enumerate(specs)], start_method="spawn")
     try:
         if args.resume:
             model = SAC.load(args.resume, env=env, device=args.device, tensorboard_log=str(OUT_DIR / "tb"))
             model.learning_starts = 0
+            if args.lr:
+                from stable_baselines3.common.utils import get_schedule_fn
+                model.lr_schedule = get_schedule_fn(args.lr)
         else:
             model = SAC(
                 "MlpPolicy", env, device=args.device, seed=args.seed, verbose=0,
@@ -148,7 +195,7 @@ def main():
                 policy_kwargs=dict(net_arch=[256, 256]), tensorboard_log=str(OUT_DIR / "tb"),
             )
         print(f"Etapa {args.etapa}: {len(specs)} entornos; {args.pasos} pasos.", flush=True)
-        model.learn(args.pasos, callback=ExportCallback(args.eval_freq, args.best_init), reset_num_timesteps=not args.resume,
+        model.learn(args.pasos, callback=ExportCallback(args.eval_freq, best_init, scenes), reset_num_timesteps=not args.resume,
                     log_interval=10_000)
         OUT_DIR.mkdir(exist_ok=True)
         model.save(OUT_DIR / "ultimo.zip")

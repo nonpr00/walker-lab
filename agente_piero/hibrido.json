@@ -1,0 +1,7 @@
+{
+  "umbral": 0.9,
+  "intensidad": 0.75,
+  "rampa": 3,
+  "persistencia": 0,
+  "umbral_beneficio": 0.5
+}
